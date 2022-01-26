@@ -1,63 +1,46 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
+
 import 'package:get/get.dart';
 
 class FireBaseController extends GetxController {
-  FirebaseAuth? _auth;
-  User? _user;
-  bool isLoading = true;
-  bool existing = false;
+  final FirebaseAuth? _auth=FirebaseAuth.instance;
+   User? _user;
+  var isLoading = true.obs;
+  var existing = false.obs;
 
-  //override
-  //void onInit() {
-  // super.onInit();
-//
-  ////getUser();
-  //}
+ //_auth = FirebaseAuth.instance;
+  // _user = _auth?.currentUser;
 
- FireBaseController() {
-   _auth = FirebaseAuth.instance;
-   _user = _auth!.currentUser;
-   if (_user?.email != null) {
-     existing = true;
-   }
+  FireBaseController () {
+    //_auth = FirebaseAuth.instance;
+    _user = _auth?.currentUser;
 
-   isLoading = false;
- }
+    //Get.snackbar('-------', '--------',
+    //    titleText: const Text('User Auth', style: TextStyle(color: Colors.red)),
+    //    backgroundColor: Colors.black,
+    //    messageText: const Text('dfsf'),
+    //    duration: const Duration(seconds: 10));
+
+    if (_user != null) {
+
+      existing.value=true;
+      isLoading.value=false;
+      if (kDebugMode) {
+        print('Anand user exixst ${existing.value}${isLoading.value}');
+      }
+    } else {
+      existing.value=false;
+      isLoading.value=false;
+      if (kDebugMode) {
+        print('Anand user dont exisst ${existing.value}${isLoading.value}');
+      }
+
+      // isLoading.isFalse;
+
+      if (kDebugMode) {
+        print('Anand anand ${existing.value}${isLoading.value}');
+      }
+    }
+  }
 }
-
-
-//class InitializerWidgetcccc extends StatelessWidget {
-//  @override
-//  _InitializerWidgetState createState() => _InitializerWidgetState();
-//}
-//
-//class _InitializerWidgetState extends State<InitializerWidget> {
-//
-//  FirebaseAuth _auth;
-//
-//  User _user;
-//
-//  bool isLoading = true;
-//
-//
-//  @override
-//  void initState() {
-//    // TODO: implement initState
-//    super.initState();
-//    _auth = FirebaseAuth.instance;
-//    _user = _auth.currentUser;
-//    isLoading = false;
-//  }
-//
-//  @override
-//  Widget build(BuildContext context) {
-//    return isLoading ? Scaffold(
-//      body: Center(
-//        child: CircularProgressIndicator(),
-//      ),
-//    ) : _user == null ? LoginScreen() : HomeScreen();
-//  }
-//}
-
-
-
